@@ -6,7 +6,7 @@
 
 set -e
 
-LINE_LENGTH_STATS=$(
+RESULT=$(
   awk '{print length($0),NR}' $1 |
   sort -rn |
   sed '/^0/d' |
@@ -19,4 +19,4 @@ LINE_LENGTH_STATS=$(
           "\nEn promedio cada linea tiene una longitud de",longitud/NR,"caractes (incluye lineas en blanco)"}'
 )
 
-echo "$LINE_LENGTH_STATS"
+echo "$RESULT"

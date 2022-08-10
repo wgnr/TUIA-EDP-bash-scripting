@@ -5,4 +5,9 @@
 
 set -e
 
-echo "$(cat $1 | tr '[:upper:][:lower:]' '[:lower:][:upper:]')"
+RESULT=$(
+  cat $1 | 
+  tr '[:upper:][:lower:]' '[:lower:][:upper:]'
+)
+
+echo "$RESULT"
