@@ -16,14 +16,17 @@ function showScriptHelp(){
 }
 
 function showMenu(){
+  NUM_REGEX="^[0-9]+$"
   OPTIONS=$(ls $SCRIPT_PATH)
   OPTIONS_Q=$(echo "$OPTIONS$" | wc -w | awk '{print $NF}')
 
-  PS3="Seleccione el script a ejecutar [1-$OPTIONS_Q]: "
+  echo "Scripts disponibles:"
+  PS3="Seleccione el script a ejecutar (0 Salir) [1-$OPTIONS_Q]> "
   select OPTION in $OPTIONS;do
-    [ $REPLY -gt $OPTIONS_Q ] && \
-      echo "Opcion no valida... saliendo." && \
-      break
+    # Input control
+    ! [[ $REPLY =~ $NUM_REGEX ]] && echo "Opcion no valida" && continue
+    [ $REPLY -eq 0 ] && echo "Saliendo ..." && break
+    [ $REPLY -gt $OPTIONS_Q ] && echo "Opcion no valida" && continue
 
     read -p "Ingrese el archivo a procesar ["$DEFAULT_TEXT"]: " TEXT_PATH
 
@@ -42,7 +45,9 @@ function showMenu(){
     echo
   done
 
-  echo -e "\nPara ver el menu de nuevo, inserte 'showMenu'"
+  echo
+  echo "Chauchis"
 }
 
+clear
 showMenu
