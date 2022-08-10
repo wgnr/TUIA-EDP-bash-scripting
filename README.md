@@ -1,12 +1,12 @@
-Facultad de Cs. Exactas, Ingenieria Y Agrimensura
+# Trabajo Práctico de Entornos de Programación
 
-Tecnicatura Universitaria en Inteligencia Artifical
+#### Universidad Nacional de Rosario
 
-Trabajo Practico de Entornos de Programacion
+### Facultad de Cs. Exactas, Ingeniería Y Agrimensura
 
-Bash Scripting
+## Tecnicatura Universitaria en Inteligencia Artifical
 
-DOCENTES
+DOCENTES:
 
 - Gustavo Bocchio
 - Andrea León Cavallo
@@ -14,15 +14,93 @@ DOCENTES
 
 ALUMNO: Juan Wagner
 
-COMISION: 2
+COMISIÓN: 2
 
-### Ejecucion
+# Bash Scripting
+
+El enunciado completo del trabajo práctico puede encontrarse en el archivo [2022-EntornoProgramacion-TP_FINAL.pdf](./2022-EntornoProgramacion-TP_FINAL.pdf) includo en el repositorio.
+
+Se solicita pueda mostrarse dentro de un contenedor un menú de opciones con el cuál se puedan aplicar ciertas manipulaciones a un texto de entrada mediante scripts.
+
+Para probar estos [scripts](#scripts), se dispone de un texto ficticio [lorem_ipsum.txt](./lorem_ipsum.txt) en el punto de entrada del contenedor y es utilizado por defecto en caso de no especificarse.
+
+### Ejecución
+
+Simplemente ejecutar el siguiente comando:
 
 ```bash
 docker run --rm -it wgnr/edp
 ```
 
+Docker tomará la imágen del repositorio de imágenes Docker Hub y correra el comando por defecto `bash /app/main.sh`.
+
+Se mostrará en terminal el siguiente menú de opciones donde ingresaremos el número del script a ejecutar o `0` para salir.
+
+```text
+Scripts disponibles:
+1) blankLinesCounter.sh  4) statsSentences.sh     7) substringReplace.sh
+2) caseConverter.sh      5) statsUsageWords.sh
+3) findNames.sh          6) statsWords.sh
+Seleccione el script a ejecutar (0 Salir) [1-7]>
+```
+
+Seleccionamos alguna opcion disponible y a continuación se nos solicitará que especifiquemos el archivo a procesar. De no ingresar nada se utilizará el archivo [lorem_ipsum.txt](./lorem_ipsum.txt) por defecto.
+
+```text
+Ingrese el archivo a procesar [./lorem_ipsum.txt]:
+```
+
+Por último, el nombre del script seleccionado es mostrado, junto a su descripcion y el resultado del mismo.
+
+Ejemplo script _4) statsSentences.sh_
+
+```text
+Seleccione el script a ejecutar (0 Salir) [1-7]> 4
+Ingrese el archivo a procesar [./lorem_ipsum.txt]:
+statsSentences.sh
+
+ Indicador estadístico de longitud de oraciones (la más corta, la más larga y el
+ promedio de longitud).
+
+La linea 3 es la mas larga con 752 caracteres
+La linea 9 es la mas corta (no vacia) con 477 caracteres
+En promedio cada linea tiene una longitud de 616.2 caractes (incluye lineas en blanco)
+```
+
+#### Otros casos de uso
+
+**Procesar otros archivos de texto**
+
+En caso de querer probar los [scripts](#scripts) con un archivo de texto en particular, este puede ser pasado al contenedor ejecutando el siguiente comando.
+Todo archivo de extension `txt` ubicado en el directorio donde se ejecutó el comando estará disponible en la ruta `/tmp` del contenedor.
+
+```bash
+# ⚠️ CUIDADO!! CUALQUIER MODIFICACIÓN A ESTOS ARCHIVOS SERÁ PERSISTIDA EN SU SISTEMA ⚠️
+docker run --rm -v "$PWD/*.txt":"/tmp" -it wgnr/edp
+```
+
+Luego cuando el prompt solicite el archivo ingresaremos la ruta al mismo.
+
+```text
+Ingrese el archivo a procesar [./lorem_ipsum.txt]: /tmp/mi_archivo.txt
+```
+
+**Ejecutar los scripts sin el menú**
+
+Para correr un script en forma manual en lugar de utilizar el menú, se puede acceder usando `bash`.
+
+```bash
+# $
+docker run --rm -it wgnr/edp bash
+# root@contenedor bash-5.1#
+./scripts/blankLinesCounter.sh lorem_ipsum.txt
+```
+
 ### Scripts
+
+Los mismos pueden encontrarse dentro de la carpeta [`scripts`](./scripts).
+
+Todos éstos toman como primer argumento el _archivo de texto_ a procesar.
 
 | #   | Command                                                | Descripcion                                                                                                                                                                                                                                                                                                                                |
 | --- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
