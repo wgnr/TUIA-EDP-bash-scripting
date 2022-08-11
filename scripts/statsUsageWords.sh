@@ -15,7 +15,7 @@ WORDS_STATS=$(
   sort | 
   uniq -c |
   sort -r -n |
-  awk -v WL=$MIN_WORD_LENGTH 'length($2)<=WL {print $2,$1}' |
+  awk -v WL=$MIN_WORD_LENGTH 'length($2)>=WL {print $2,$1}' |
   head -n $SHOW_RESULTS
 )
 
