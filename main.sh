@@ -7,12 +7,7 @@ DEFAULT_TEXT=./lorem_ipsum.txt
 
 function showScriptHelp(){
   basename $1
-  END_HELP=$(cut -c 1 $1 | 
-  uniq -c | 
-  awk 'NR==1 {print $1}')
-
-  awk -v END_HELP_LINE=$END_HELP 'NR>1 && NR<=END_HELP_LINE {print $0}' $1 |
-  tr -d '#'
+  sed -n '2,/^$/p' < $1 | tr -d '#'
 }
 
 function showMenu(){
