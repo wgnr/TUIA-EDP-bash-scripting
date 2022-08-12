@@ -12,4 +12,5 @@ NAMES=$(
   grep -E "\b([[:upper:]][[:alpha:]]*)\b" -o $1
 )
 
-echo -e "Listado de nombres propios:\n$NAMES"
+echo "Listado de nombres propios:"
+echo $NAMES
