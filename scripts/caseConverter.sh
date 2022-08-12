@@ -6,8 +6,7 @@
 set -e
 
 RESULT=$(
-  cat $1 | 
-  tr '[:upper:][:lower:]' '[:lower:][:upper:]'
+  tr '[:upper:][:lower:]' '[:lower:][:upper:]' < $1
 )
 
 echo "$RESULT"
